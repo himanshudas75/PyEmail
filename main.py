@@ -48,19 +48,12 @@ menu="""\
 
 Choose an option: """
 
-menu1="""\
-
-1> Receiver Email
-2> Subject
-3> Body
-4> Attachments
-5> Preview
-6> Back
-"""
 while(True):
     print(menu)
     opt = int(input())
     if opt == 1:
         clean()
-
+    elif opt == 2:
+        clean()
+        
     break
