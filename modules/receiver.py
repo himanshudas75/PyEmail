@@ -32,6 +32,13 @@ delemail="""\
 -> Enter STOP to stop deleting and return to the menu
 
 """
+def print_email(email_list):
+    print("The stored email addresses are: ")
+    for i in email_list:
+        sl = re.findall('.+\.',email_list[i])[0][:-1]
+        name = re.findall('\..+',email_list[i])[0][1:].strip()
+        print(f'{sl}. {i}: {name}')
+
 def add_email(email_list, path):
     clean()
     l = len(email_list)
@@ -57,6 +64,30 @@ def add_email(email_list, path):
 def del_email(email_list, path):
     clean()
     print(delemail)
+    while(True):
+        text = input()
+        if 'STOP' in text.upper():
+            break
+        elif 'SHOW' in text.upper():
+            print()
+            print_email(email_list)
+            print()
+        else:
+            text = text.split(',')
+            for i.strip() in text:
+                if i.isnumeric():
+                    i = int(i)
+                    if i > len(email_list):
+                        i = len(email_list)
+                    for email in email_list:
+                        sl = re.findall('.+\.',email_list[email])[0][:-1]
+                        if int(sl.strip()) == i:
+                            pop = email_list.pop(email,-1)
+                            break
+                elif ':' in text:
+                    text = text.split(':')
+                    
+
 
 def email_receive(path):
     with open(f'{path}/data/recipients.json','r') as file:
@@ -64,11 +95,7 @@ def email_receive(path):
     
     while(True):
         clean()
-        print("The stored email addresses are: ")
-        for i in email_list:
-            sl = re.findall('.+\.',email_list[i])[0][:-1]
-            name = re.findall('\..+',email_list[i])[0][1:].strip()
-            print(f'{sl}. {i}: {name}')
+        print_email(email_list)
         
         print(menu2,end="")
         opt = int(input())
